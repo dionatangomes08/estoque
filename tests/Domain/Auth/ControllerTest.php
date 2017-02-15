@@ -2,11 +2,9 @@
 namespace Domain\Auth;
 
 use Domain\User\User;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ControllerTest extends \TestCase
 {
-    use DatabaseTransactions;
     
     public function testLogin(){
         //define as busca

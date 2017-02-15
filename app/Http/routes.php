@@ -15,3 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::post('auth/login','\Domain\Auth\Controller@login');
+
+Route::group(['middleware' => 'jwt.auth'], function(){
+    Route::resource('comentario','\Domain\Comentario\Controller');    
+});

@@ -1,7 +1,11 @@
 <?php
 
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Domain\User\User;
+
 class TestCase extends Illuminate\Foundation\Testing\TestCase
 {
+    use DatabaseTransactions;
     /**
      * The base URL to use while testing the application.
      *
@@ -21,5 +25,27 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
         $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
 
         return $app;
+    }
+    
+    public function getHeaders(User $user=NULL, String $password=NULL){
+        $password = 'password123';
+        if (is_null($user)) {
+            $user = factory(User::class)->create([
+                'password' => bcrypt($password),    
+            ]);
+        }
+        $data=[
+            'username'=>$user->username,
+            'password'=>$password,
+        ];
+        $this->post('auth/login', $data);
+        //dd($this->response->getContent()); //imprime o conteudo da resposta do post
+        $data1 = $this->response->getContent();
+        $token = json_decode($data1)->token;
+        
+        return [
+            //'Content-type'=>'application/json',
+            'Authorization'=>'Bearer '.$token,
+        ];
     }
 }

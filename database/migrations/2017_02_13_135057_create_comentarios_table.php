@@ -12,7 +12,7 @@ class CreateComentariosTable extends Migration
      */
     public function up()
     {
-        Schema::create('comentario', function (Blueprint $table) {
+        Schema::create('comentarios', function (Blueprint $table) {
             $table->increments('id_registro');
             $table->unsignedInteger('id_user');
             $table->string('responsavel',45); //Responsável pelo comentário . Pegará pelo login.
