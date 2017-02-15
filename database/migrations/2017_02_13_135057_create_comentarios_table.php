@@ -13,7 +13,8 @@ class CreateComentariosTable extends Migration
     public function up()
     {
         Schema::create('comentarios', function (Blueprint $table) {
-            $table->increments('id_registro');
+            $table->increments('id');
+            $table->integer('id_registro');
             $table->unsignedInteger('id_user');
             $table->string('responsavel',45); //Responsável pelo comentário . Pegará pelo login.
             $table->dateTime('hora_comentario'); //Horario do registro do comentário
